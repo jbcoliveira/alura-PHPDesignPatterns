@@ -6,7 +6,7 @@ class CalculadorDeImposto {
 
         $valor = $imposto->calcula($orcamento);
 
-        echo $valor;
+        return $valor;
     }
 
 }

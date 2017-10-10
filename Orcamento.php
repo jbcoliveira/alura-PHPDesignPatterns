@@ -13,5 +13,10 @@ class Orcamento {
         return $this->valor;
     }
 
+    function setValor($valor) {
+        $this->valor = $valor;
+    }
+
+
    
 }

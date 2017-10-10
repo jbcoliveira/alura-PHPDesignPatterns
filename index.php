@@ -6,9 +6,10 @@ function autoload($class) {
 
 spl_autoload_register("autoload");
 
-$reforma = new Orcamento(500);
+$reforma = new Orcamento(10000);
 $icms = new ICMS();
 $iss = new ISS();
+$iccc = new ICCC();
 
 
 echo $reforma->getValor();
@@ -18,9 +19,5 @@ $calculadorDeImposto = new CalculadorDeImposto();
 
 echo '<br />';
 
-$calculadorDeImposto->realizaCalculo($reforma, $icms);
-
-echo '<br />';
-
-$calculadorDeImposto->realizaCalculo($reforma, $iss);
+echo $calculadorDeImposto->realizaCalculo($reforma, $iccc);
 
