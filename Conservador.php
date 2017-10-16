@@ -9,7 +9,7 @@ class Conservador implements Investimento {
     }
 
     public function investeSaldo(Conta $conta) {
-        return $conta->getSaldo() * $this->$retorno;
+        return $conta->getSaldo() * $this->retorno;
     }
 
     public function getRetorno() {

@@ -5,40 +5,55 @@ function autoload($class) {
 }
 
 spl_autoload_register("autoload");
-/*
-$reforma = new Orcamento(10000);
-$icms = new ICMS();
-$iss = new ISS();
-$iccc = new ICCC();
 
 
-echo $reforma->getValor();
+// Teste Orçamento
 
+echo '<br /> Teste Orçamento';
+$conta = new Conta(500);
 
-$calculadorDeImposto = new CalculadorDeImposto();
+$investimento = new Conservador();
 
-echo '<br />';
-
-echo $calculadorDeImposto->realizaCalculo($reforma, $iccc);
-
-echo '<br />';
-*/
-
-
-$conta = new Conta(1000);
-
-$investimento = new Arrojado();
-
-$realizadorDeInvestimento = new RealizadorDeInvestimentos($conta,$investimento);
+$realizadorDeInvestimento = new RealizadorDeInvestimentos($conta, $investimento);
 
 echo 'Saldo: ' . $conta->getSaldo();
 echo '<br />';
 
 
+echo 'Saldo Final: ' . $realizadorDeInvestimento->investe() . ' (descontados 25%)';
+echo '<br />';
 
-echo 'Valor a ser investido: ' . $investimento->investeSaldo($conta);
+echo 'Retorno R$: ' . $realizadorDeInvestimento->getTotalInvestido();
+echo '<br />';
+
+echo 'Retorno %: ' . $investimento->getRetorno();
 echo '<br />';
 
 
-echo 'Saldo Final: ' . $realizadorDeInvestimento->investe();
+
+echo '<br />Teste Descontos <br />';
+
+//Testa Descontos
+$orcamento = new Orcamento(300);
+
+$calculador = new CalculadorDeDescontos();
+
+$orcamento->adicionaItem(new Item("CANETA", 50.0));
+$orcamento->adicionaItem(new Item("LAPIS", 50.0));
+
+$orcamento->adicionaItem(new Item("CANETA", 50.0));
+$orcamento->adicionaItem(new Item("LAPIS", 50.0));
+
+$orcamento->adicionaItem(new Item("CANETA", 50.0));
+$orcamento->adicionaItem(new Item("LAPIS", 50.0));
+
+
+$desconto = $calculador->calcula($orcamento);
+
+echo 'Valor do Orçamento: ' . $orcamento->getValor();
+echo '<br />';
+echo 'Numero de Itens: ' . count($orcamento->getItens());
+echo '<br />';
+echo 'Desconto: ' . $desconto;
+
 
