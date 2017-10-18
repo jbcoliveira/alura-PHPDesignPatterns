@@ -7,10 +7,10 @@ function autoload($class) {
 spl_autoload_register("autoload");
 
 
-// Teste Orçamento
-
+// Teste Conta
+/*
 echo '<br /> Teste Orçamento';
-$conta = new Conta(500);
+$conta = new Conta('Joao',500);
 
 $investimento = new Conservador();
 
@@ -34,18 +34,13 @@ echo '<br />';
 echo '<br />Teste Descontos <br />';
 
 //Testa Descontos
-$orcamento = new Orcamento(300);
+$orcamento = new Orcamento(100);
 
 $calculador = new CalculadorDeDescontos();
 
 $orcamento->adicionaItem(new Item("CANETA", 50.0));
 $orcamento->adicionaItem(new Item("LAPIS", 50.0));
 
-$orcamento->adicionaItem(new Item("CANETA", 50.0));
-$orcamento->adicionaItem(new Item("LAPIS", 50.0));
-
-$orcamento->adicionaItem(new Item("CANETA", 50.0));
-$orcamento->adicionaItem(new Item("LAPIS", 50.0));
 
 
 $desconto = $calculador->calcula($orcamento);
@@ -57,3 +52,38 @@ echo '<br />';
 echo 'Desconto: ' . $desconto;
 
 
+//Testa Requisicao
+
+$conta = new Conta('Joao',500);
+
+$formato = new Formato();
+
+$requisicao = new Requisicao($formato::$PORCENTO);
+
+$correnteFormato = new CorrenteFormatos();
+
+echo $correnteFormato->requisita($requisicao, $conta);
+*/
+
+//Teste Imposto
+
+$orcamento = new Orcamento(501);
+
+$calculador = new CalculadorDeImposto();
+
+$orcamento->adicionaItem(new Item("LAPIS", 50.0));
+$orcamento->adicionaItem(new Item("CANETA", 10.0));
+$orcamento->adicionaItem(new Item("BORRACHA", 10.0));
+$orcamento->adicionaItem(new Item("ESTOJO", 10.0));        
+$orcamento->adicionaItem(new Item("LAPIS", 50.0));
+
+$icpp = new ICPP();
+$ikcv = new IKCV();
+$ihit = new IHIT();
+$imposto = $calculador->realizaCalculo( $orcamento, $ihit);
+
+echo 'Valor do Orçamento: ' . $orcamento->getValor();
+echo '<br />';
+echo 'Numero de Itens: ' . count($orcamento->getItens());
+echo '<br />';
+echo 'Imposto: ' . $imposto;
