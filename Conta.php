@@ -4,6 +4,8 @@ class Conta {
 
     private $saldo;
     private $titular;
+    private $agencia;
+    private $numero;
 
     function __construct($titular,$saldo) {
         $this->titular = $titular;
@@ -29,5 +31,23 @@ class Conta {
     function setTitular($titular) {
         $this->titular = $titular;
     }
+    
+    function getAgencia() {
+        return $this->agencia;
+    }
+
+    function getNumero() {
+        return $this->numero;
+    }
+
+    function setAgencia($agencia) {
+        $this->agencia = $agencia;
+    }
+
+    function setNumero($numero) {
+        $this->numero = $numero;
+    }
+
+
 
 }

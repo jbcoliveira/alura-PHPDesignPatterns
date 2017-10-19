@@ -63,7 +63,7 @@ $requisicao = new Requisicao($formato::$PORCENTO);
 $correnteFormato = new CorrenteFormatos();
 
 echo $correnteFormato->requisita($requisicao, $conta);
-*/
+
 
 //Teste Imposto
 
@@ -87,3 +87,31 @@ echo '<br />';
 echo 'Numero de Itens: ' . count($orcamento->getItens());
 echo '<br />';
 echo 'Imposto: ' . $imposto;
+ * 
+ * 
+ */
+
+//Teste Relatorios
+
+$banco = new Banco("Banco","(11) 1234-5678");
+$banco->setEmail("banco@banco.com");
+$banco->setEndereco("Rua ABC, 1234");
+
+$agencia1 = new Agencia(12345,8);
+$agencia2 = new Agencia(1222,9);
+
+$conta1 = new Conta("Joao",1000);
+$conta1->setNumero(123);
+
+$conta2 = new Conta("Ana",500);
+$conta2->setNumero(999);
+
+$agencia1->adicionaConta($conta1);
+$agencia2->adicionaConta($conta2);
+
+$banco->adicionaAgencia($agencia1);
+$banco->adicionaAgencia($agencia2);
+
+$relatorio = new RelatorioSimples();
+
+$relatorio->imprime($banco);
