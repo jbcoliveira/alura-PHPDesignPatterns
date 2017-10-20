@@ -1,11 +1,12 @@
 <?php
 
-abstract class TemplateDeImpostoCondicional implements Imposto {
+abstract class TemplateDeImpostoCondicional extends Imposto {
+
 
     public function calcula(Orcamento $orcamento) {
 
         if ($this->deveUsarMaximaTaxacao($orcamento)) {
-            return $this->maximaTaxacao($orcamento);
+            return $this->maximaTaxacao($orcamento) ;
         } else {
             return $this->minimaTaxacao($orcamento);
         }

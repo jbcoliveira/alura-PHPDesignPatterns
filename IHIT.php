@@ -2,16 +2,20 @@
 
 class IHIT extends TemplateDeImpostoCondicional {
 
+    function __construct(Imposto $outroImposto = null) {
+        parent::__construct($outroImposto);
+    }
+
     protected function deveUsarMaximaTaxacao(\Orcamento $orcamento) {
         return $this->temItemDuplicado($orcamento);
     }
 
     protected function maximaTaxacao(\Orcamento $orcamento) {
-        return ($orcamento->getValor() * 0.13) + 100;
+        return ($orcamento->getValor() * 0.13) + 100 + $this->calculoDoOutroImposto($orcamento);
     }
 
     protected function minimaTaxacao(\Orcamento $orcamento) {
-        return $orcamento->getValor() * count($orcamento->getItens()) * 0.01;
+        return ($orcamento->getValor() * count($orcamento->getItens()) * 0.01) + $this->calculoDoOutroImposto($orcamento);
     }
 
     protected function temItemDuplicado(\Orcamento $orcamento) {

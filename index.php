@@ -89,7 +89,6 @@ echo '<br />';
 echo 'Imposto: ' . $imposto;
  * 
  * 
- */
 
 //Teste Relatorios
 
@@ -115,3 +114,35 @@ $banco->adicionaAgencia($agencia2);
 $relatorio = new RelatorioSimples();
 
 $relatorio->imprime($banco);
+ * 
+ * 
+ */
+
+//Teste Imposto (Decorator)
+
+$orcamento = new Orcamento(100);
+
+$imposto1 = new ISS(new ICMS());
+$imposto2 = new ICPP(new IHIT());
+
+$calculador = new CalculadorDeImposto();
+
+$orcamento->adicionaItem(new Item("LAPIS", 50.0));
+$orcamento->adicionaItem(new Item("CANETA", 10.0));
+$orcamento->adicionaItem(new Item("CANETA", 10.0));
+$orcamento->adicionaItem(new Item("BALA", 10.0));
+
+
+
+
+$imposto1Valor = $calculador->realizaCalculo( $orcamento, $imposto1);
+$imposto2Valor = $calculador->realizaCalculo( $orcamento, $imposto2);
+
+
+echo 'Valor do Orçamento: ' . $orcamento->getValor();
+echo '<br />';
+echo 'Numero de Itens: ' . count($orcamento->getItens());
+echo '<br />';
+echo 'Imposto1: ' . $imposto1Valor;
+echo '<br />';
+echo 'Imposto2: ' . $imposto2Valor;

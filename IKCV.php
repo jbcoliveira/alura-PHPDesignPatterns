@@ -1,6 +1,19 @@
 <?php
 
 class IKCV extends TemplateDeImpostoCondicional {
+
+    function __construct(Imposto $outroImposto = null) {
+        parent::__construct($outroImposto);
+    }
+    
+    protected function calculoDoOutroImposto(\Orcamento $orcamento) {
+        return parent::calculoDoOutroImposto($orcamento);
+    }
+
+    public function calcula(\Orcamento $orcamento) {
+        return parent::calcula($orcamento);
+    }
+
     protected function deveUsarMaximaTaxacao(\Orcamento $orcamento) {
         return $orcamento->getValor() > 500 && $this->temItemComValorMaior100($orcamento);
     }
@@ -14,12 +27,12 @@ class IKCV extends TemplateDeImpostoCondicional {
     }
 
     protected function temItemComValorMaior100(\Orcamento $orcamento) {
-        
-         foreach ($orcamento->getItens() as $item) {
+
+        foreach ($orcamento->getItens() as $item) {
             if ($item->getValor() > 100)
                 return true;
         }
         return false;
-        
     }
+
 }
