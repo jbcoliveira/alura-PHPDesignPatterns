@@ -116,7 +116,7 @@ $relatorio = new RelatorioSimples();
 $relatorio->imprime($banco);
  * 
  * 
- */
+ 
 
 //Teste Imposto (Decorator)
 
@@ -124,6 +124,7 @@ $orcamento = new Orcamento(100);
 
 $imposto1 = new ISS(new ICMS());
 $imposto2 = new ICPP(new IHIT());
+$imposto3 = new ICMS(new ImpostoAlto());
 
 $calculador = new CalculadorDeImposto();
 
@@ -137,6 +138,7 @@ $orcamento->adicionaItem(new Item("BALA", 10.0));
 
 $imposto1Valor = $calculador->realizaCalculo( $orcamento, $imposto1);
 $imposto2Valor = $calculador->realizaCalculo( $orcamento, $imposto2);
+$imposto3Valor = $calculador->realizaCalculo( $orcamento, $imposto3);
 
 
 echo 'Valor do Orçamento: ' . $orcamento->getValor();
@@ -146,3 +148,36 @@ echo '<br />';
 echo 'Imposto1: ' . $imposto1Valor;
 echo '<br />';
 echo 'Imposto2: ' . $imposto2Valor;
+echo '<br />';
+echo 'Imposto3: ' . $imposto3Valor;
+ * 
+ */
+
+//Teste Filtros
+
+$banco = new Banco("Banco","(11) 1234-5678");
+$banco->setEmail("banco@banco.com");
+$banco->setEndereco("Rua ABC, 1234");
+
+$agencia1 = new Agencia(12345,8);
+$agencia2 = new Agencia(1222,9);
+
+$conta1 = new Conta("Joao",500  ,date("d/m/Y"));
+$conta1->setNumero(123);
+
+$conta3 = new Conta("Maria",5000000  ,"01/01/1995");
+$conta3->setNumero(5001);
+
+$conta2 = new Conta("Ana",500,"01/01/2015");
+$conta2->setNumero(999);
+
+$agencia1->adicionaConta($conta1);
+$agencia2->adicionaConta($conta2);
+$agencia1->adicionaConta($conta3);
+
+$banco->adicionaAgencia($agencia1);
+$banco->adicionaAgencia($agencia2);
+
+$processaContas =  new ProcessaContas($banco);
+$processaContas->processar();
+$processaContas->exibeContasSuspeitas();

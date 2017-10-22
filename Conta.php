@@ -6,10 +6,14 @@ class Conta {
     private $titular;
     private $agencia;
     private $numero;
+    private $dataAbertura;
 
-    function __construct($titular,$saldo) {
+    function __construct($titular, $saldo, $dataAbertura) {
         $this->titular = $titular;
         $this->saldo = $saldo;
+        
+        $datetime = new DateTime();
+        $this->dataAbertura = $datetime->createFromFormat('d/m/Y', $dataAbertura);
     }
 
     public function deposita($valor) {
@@ -31,7 +35,7 @@ class Conta {
     function setTitular($titular) {
         $this->titular = $titular;
     }
-    
+
     function getAgencia() {
         return $this->agencia;
     }
@@ -48,6 +52,8 @@ class Conta {
         $this->numero = $numero;
     }
 
-
+    function getDataAbertura() {
+        return $this->dataAbertura;
+    }
 
 }
