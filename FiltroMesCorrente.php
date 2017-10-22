@@ -20,11 +20,6 @@ class FiltroMesCorrente extends Filtro {
             foreach ($this->proximo($contas) as $conta) {
                 $this->adicionaConta($conta);
             }
-            /*
-              if ($dataAbertura  ) {
-              $this->adicionaConta($conta);
-              }
-             * */
         }
         return $this->getListaContas();
     }
