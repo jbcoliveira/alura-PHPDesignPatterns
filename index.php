@@ -151,7 +151,7 @@ echo 'Imposto2: ' . $imposto2Valor;
 echo '<br />';
 echo 'Imposto3: ' . $imposto3Valor;
  * 
- */
+ *
 
 //Teste Filtros
 
@@ -181,3 +181,21 @@ $banco->adicionaAgencia($agencia2);
 $processaContas =  new ProcessaContas($banco);
 $processaContas->processar();
 $processaContas->exibeContasSuspeitas();
+*/
+
+//Teste de estados de orçamento
+
+$orcamento = new Orcamento(100);
+
+echo $orcamento->getValor().'<br />';
+
+echo $orcamento->aplicaDescontoExtra().'<br />';
+
+echo $orcamento->getValor().'<br />';
+
+
+echo $orcamento->aplicaDescontoExtra().'<br />';
+
+echo $orcamento->getValor().'<br />';
+
+
