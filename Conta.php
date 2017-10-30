@@ -7,17 +7,28 @@ class Conta {
     private $agencia;
     private $numero;
     private $dataAbertura;
+    private $status;
 
-    function __construct($titular, $saldo, $dataAbertura) {
+    function __construct($titular, $valor, $dataAbertura) {
         $this->titular = $titular;
-        $this->saldo = $saldo;
+        
+        $valor >= 0? $this->status = new Positivo(): $this->status = new Negativo();
+        
+        $this->deposita($valor);
+        //$this->saldo = $saldo;
         
         $datetime = new DateTime();
         $this->dataAbertura = $datetime->createFromFormat('d/m/Y', $dataAbertura);
+        
+        
     }
 
     public function deposita($valor) {
-        $this->saldo += $valor;
+        $this->status->deposita($this, $valor);
+    }
+
+    public function saca($valor) {
+        $this->status->saca($this, $valor);
     }
 
     function getSaldo() {
@@ -54,6 +65,14 @@ class Conta {
 
     function getDataAbertura() {
         return $this->dataAbertura;
+    }
+
+    function getStatus() {
+        return $this->status;
+    }
+
+    function setStatus($status) {
+        $this->status = $status;
     }
 
 }

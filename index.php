@@ -181,7 +181,6 @@ $banco->adicionaAgencia($agencia2);
 $processaContas =  new ProcessaContas($banco);
 $processaContas->processar();
 $processaContas->exibeContasSuspeitas();
-*/
 
 //Teste de estados de orçamento
 
@@ -199,3 +198,43 @@ echo $orcamento->aplicaDescontoExtra().'<br />';
 echo $orcamento->getValor().'<br />';
 
 
+
+//Teste estado da conta
+
+$conta1 = new Conta("Joao",500  ,date("d/m/Y"));
+
+echo $conta1->getSaldo();
+var_dump($conta1->getStatus());
+
+$conta1->saca(501);
+echo $conta1->getSaldo();
+var_dump($conta1->getStatus());
+
+
+$conta1->saca(501);
+echo $conta1->getSaldo();
+var_dump($conta1->getStatus());
+ * 
+ */
+//Teste Nota Fiscal Builder
+
+
+        $criador = new NotaFiscalBuilder();
+        
+        $criador->adicionaAcao(new NotaFiscalDao);
+        $criador->adicionaAcao(new NotaFiscalEnviaEmail());
+        $criador->adicionaAcao(new NotaFiscalMultiplicador(1.2));
+        
+        $notafiscal = $criador->paraEmpresa("Caelum");
+        $criador->comCnpj("123.456.789/0001-10");
+        $criador->comItem(new ItemDaNota("item 1", 400.0));
+        $criador->comItem(new ItemDaNota("item 2", 600.0));
+
+        $criador->comObservacoes("");
+        $criador->naData("25/08/2016");
+        
+        
+        
+        $criador->build();
+        
+        var_dump($criador);
